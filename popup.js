@@ -15,23 +15,14 @@ document.addEventListener("DOMContentLoaded", function() {
 					req.onload = function(){
 						var textR = req.responseText;
 						var unread = textR.match(/<ul class="unread">([\s|\S]*?)<\/ul>/g)[0].replace(/\n/g,"");
-						var read = textR.match(/<ul class="read">([\s|\S]*?)<\/ul>/g)[0].match(/<h3>Today<\/h3>([\s|\S]*?)<h3>/)[0].replace(/\n/g,"");
-						read = '<ul class="read">' + read.substring(0,read.length-4)  + '</ul>';
+						var read = textR.match(/<ul class="read">([\s|\S]*?)<\/ul>/g)[0].replace(/\n/g,"");
 						document.querySelector("#messages").innerHTML = (unread + read).replace(/href="\//g,'target="_blank" href="https://scratch.mit.edu/');
-						xhrGet("https://api.scratch.mit.edu/proxy/users/"+username+"/activity/count",function(req){
-							req.onload = function(){
-								var jsonR = JSON.parse(req.responseText);
-								chrome.browserAction.setBadgeBackgroundColor({color:"#f9a739"});
-								if(jsonR.msg_count>0){
-									chrome.browserAction.setBadgeText({text:jsonR.msg_count.toString()});
-								}else{
-									chrome.browserAction.setBadgeText({text:""});
-								}
-							}
-						});
+						chrome.browserAction.setBadgeText({text:""});
 					};
+					req.onerror = function(e){console.error(e); document.getElementById("messages").innerHTML = e;};
 				});
 			}else{ console.error("Not logged in"); document.getElementById("messages").innerHTML = "Not logged in"; }
 		}
+		req.onerror = function(e){console.error(e); document.getElementById("messages").innerHTML = e;};
 	});
 });
