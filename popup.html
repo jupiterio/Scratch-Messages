@@ -1,0 +1,41 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+	<head>
+		<title>Messages</title>
+		<style>
+		body { font-family: sans-serif; margin: 0; }
+		#topbar { display: block; height: 30px; width: 100%; background: #0f8bc0; margin: 0; text-align: center; color: #fff; padding: 8px 0; position: fixed; box-shadow: 1px 1px 5px rgba(0,0,0,0.4); }
+		#messages { padding-top: 61px; margin: 10px; margin-top: 0; }
+		#messages h3 { padding: 10px; margin: 0; font-size: 2em; }
+		#messages ul, #messages li { margin: 0; padding: 0; display: block; }
+		#messages li { margin: 0 10px; padding: 10px 0; display: block; border-bottom: 1px solid #eee; }
+		#messages li a { text-decoration: none; color: #0f8bc0; } #messages li a:hover { text-decoration: underline; }
+		#messages ul li:last-child { border: none; }
+		.icon-xs {
+			background: url(https://cdn.scratch.mit.edu/scratchr2/static/__ac20a9ec106c4ad0e46fdcb2339bb694__/images/icons_xs.png) no-repeat top;
+			width: auto;
+			height: 14px;
+			line-height: 14px;
+			display: inline-block;
+			padding-left: 20px;
+			vertical-align: middle;
+		}
+		.icon-xs.comment.black, .icon-xs.reply.black {
+			background-position: -7px -3px;
+		}
+		.unread { background: #eed; border-radius: 5px; }
+		.read { opacity: .6; }
+		</style>
+		<script src="popup.js"></script>
+	</head>
+	<body>
+		<h1 id="topbar">Messages</h1>
+		<div id="messages" style="width: 600px"></div>
+		<iframe src="http://scratch.mit.edu/messages"style="display:none;"></iframe>
+	</body>
+</html>
