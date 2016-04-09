@@ -14,9 +14,8 @@ document.addEventListener("DOMContentLoaded", function() {
 				xhrGet("https://scratch.mit.edu/messages/",function(req){
 					req.onload = function(){
 						var textR = req.responseText;
-						var unread = textR.match(/<ul class="unread">([\s|\S]*?)<\/ul>/g)[0].replace(/\n/g,"");
-						var read = textR.match(/<ul class="read">([\s|\S]*?)<\/ul>/g)[0].replace(/\n/g,"");
-						document.querySelector("#messages").innerHTML = (unread + read).replace(/href="\//g,'target="_blank" href="https://scratch.mit.edu/');
+						var msg = textR.match(/<ul>([\s|\S]*?)<\/ul>/g)[1].replace(/\n/g,"");
+						document.querySelector("#messages").innerHTML = (msg).replace(/href="\//g,'target="_blank" href="https://scratch.mit.edu/');
 						chrome.browserAction.setBadgeText({text:""});
 					};
 					req.onerror = function(e){console.error(e); document.getElementById("messages").innerHTML = e;};
