@@ -5,25 +5,111 @@
  value "popup.html".
  -->
 <html>
-	<head>
-		<title>Messages</title>
-		<style>
-		body { font-family: sans-serif; margin: 0; }
-		#topbar { display: block; height: 30px; width: 100%; background: #0f8bc0; margin: 0; text-align: center; color: #fff; padding: 8px 0; position: fixed; box-shadow: 1px 1px 5px rgba(0,0,0,0.4); }
-		#messages { padding-top: 61px; margin: 10px; margin-top: 0; }
-		#messages h3 { padding: 10px; margin: 0; font-size: 2em; }
-		#messages ul, #messages li { margin: 0; padding: 0; display: block; }
-		#messages li { margin: 0 10px; padding: 10px 0; display: block; border-bottom: 1px solid #eee; }
-		#messages li a { text-decoration: none; color: #0f8bc0; } #messages li a:hover { text-decoration: underline; }
-		#messages ul li:last-child { border: none; }
-		.icon-xs{background:url(https://cdn.scratch.mit.edu/scratchr2/static/__ac20a9ec106c4ad0e46fdcb2339bb694__/images/icons_xs.png) top no-repeat;width:auto;height:14px;line-height:14px;display:inline-block;padding-left:20px;vertical-align:middle}.icon-xs.comment.black,.icon-xs.reply.black{background-position:-7px -3px}.icon-xs.comment.grey{background-position:-7px -15px}.icon-xs.comment.white{background-position:-7px -28px}.icon-xs.comment.active{background-position:-7px -43px}.icon-xs.love.black{background-position:-7px -58px}.icon-xs.love.grey{background-position:-7px -73px}.icon-xs.love.white{background-position:-7px -86px}.icon-xs.love.active{background-position:-7px -100px}.icon-xs.favorite.grey{background-position:-7px -115px}.icon-xs.favorite.black{background-position:-7px -128px}.icon-xs.favorite.white{background-position:-7px -142px}.icon-xs.favorite.active{background-position:-7px -156px}.icon-xs.remix.grey{background-position:-7px -169px}.icon-xs.remix.black{background-position:-7px -182px}.icon-xs.remix.white{background-position:-7px -196px}.icon-xs.remix.active{background-position:-7px -210px}.icon-xs.project.black{background-position:-7px -225px}.icon-xs.project.grey{background-position:-7px -239px}.icon-xs.project.white{background-position:-7px -251px}.icon-xs.follower.black{background-position:-7px -265px}.icon-xs.follower.grey{background-position:-7px -278px}.icon-xs.follower.white{background-position:-7px -291px}.icon-xs.follow.black{background-position:-7px -265px}.icon-xs.follow.grey{background-position:-7px -278px}.icon-xs.follow.white{background-position:-7px -291px}.icon-xs.gallery.black{background-position:-7px -305px}.icon-xs.gallery.grey{background-position:-7px -320px}.icon-xs.gallery.white{background-position:-7px -334px}.icon-xs.notification.black{background-position:-7px -348px}.icon-xs.notification.grey{background-position:-7px -361px}.icon-xs.notification.white{background-position:-7px -375px}.icon-xs.view.grey{background-position:-7px -391px}.icon-xs.view.black{background-position:-7px -405px}
-		.unread { background: #eed; border-radius: 5px; }
-		</style>
-		<script src="popup.js"></script>
-	</head>
-	<body>
-		<h1 id="topbar">Messages</h1>
-		<div id="messages" style="width: 600px"></div>
-		<iframe src="http://scratch.mit.edu/messages"style="display:none;"></iframe>
-	</body>
+  <head>
+    <title>Messages</title>
+    <style>
+body {
+  font-family: sans-serif;
+  margin: 0;
+  width: 450px;
+  height: 400px;
+  overflow-x: hidden;
+}
+
+#topbar {
+  display: block;
+  background: #4d97ff;
+  text-align: center;
+  color: #fff;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+  font-size: 1.5em;
+  font-weight: bold;
+  height: 45px;
+  line-height: 45px;
+}
+
+#messages {
+  padding: 0px 15px;
+  width: calc(100% - (15px * 2));
+  font-size: 0.9em;
+  height: calc(100% - 45px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.message {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(16, 16, 16, 0.1);
+  display: grid;
+  grid-template-columns: 26px auto 75px;
+  row-gap: 12px;
+}
+
+.message:last-child {
+  border: none;
+}
+
+.message .icon {
+  margin-top: 2px;
+  height: 16px;
+}
+
+.message .content {
+  line-height: 1.4;
+}
+
+.message .content a {
+  text-decoration: none;
+  color: #4d97ff;
+  font-weight: bold;
+}
+
+.message .content a:hover {
+  color: #4280d7;
+}
+
+.message .time {
+  font-size: 0.8em;
+  margin-top: 3px;
+  color: #555;
+  text-align: right;
+}
+
+.comment {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  padding: 10px 20px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  position: relative;
+  border-top-left-radius: 0px;
+  margin-left: 20px;
+}
+
+.comment::before {
+  display: block;
+  position: absolute;
+  top: -1px;
+  left: -11px;
+  border: 1px solid #d9d9d9;
+  border-right: none;
+  border-radius: 0 0 0 100%;
+  width: 10px;
+  content: "";
+  height: 10px;
+  background: white;
+}
+
+.profile-pic {
+  width: 26px;
+  height: 26px
+}
+    </style>
+    <script src="https://scratch.mit.edu/js/messages.intl.js"></script>
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <div id="topbar">Messages</div>
+    <div id="messages"></div>
+  </body>
 </html>
